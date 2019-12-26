@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <title>Update Nomor Telepon</title>
+    </head>
+    <body>
+        <div th:if="${updated}">
+            <h2 th:text="'Nomor telepon restoran ' + ${restoran.nama} + ' berhasil diubah'"></h2>
+        </div>
+        <div th:unless="${updated}">
+            <h2>Restoran tidak ditemukan</h2>
+        </div>
+    </body>
+</html>
