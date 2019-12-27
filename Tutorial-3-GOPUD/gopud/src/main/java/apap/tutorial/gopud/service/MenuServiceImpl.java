@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -21,5 +22,27 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<MenuModel> findAllMenuByIdRestoran(Long idRestoran) {
         return menuDb.findByRestoranIdRestoran(idRestoran);
+    }
+
+    @Override
+    public Optional<MenuModel> findById(Long menuId) {
+        return menuDb.findById(menuId);
+    }
+
+    @Override
+    public MenuModel changeMenu(MenuModel menuModel) {
+        Optional<MenuModel> targetMenuOpt = menuDb.findById(menuModel.getId());
+
+        if (targetMenuOpt.isPresent()) {
+            MenuModel targetMenu = targetMenuOpt.get();
+            targetMenu.setNama(menuModel.getNama());
+            targetMenu.setDeskripsi(menuModel.getDeskripsi());
+            targetMenu.setHarga(menuModel.getHarga());
+            targetMenu.setDurasiMasak(menuModel.getDurasiMasak());
+            menuDb.save(targetMenu);
+            return targetMenu;
+        } else {
+            return null;
+        }
     }
 }

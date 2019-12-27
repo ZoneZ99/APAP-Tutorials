@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Optional;
+
 @Controller
 public class MenuController {
 
@@ -30,7 +32,7 @@ public class MenuController {
             Model model) {
 
         MenuModel menu = new MenuModel();
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
+        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).orElse(null);
         menu.setRestoran(restoran);
         model.addAttribute("menu", menu);
         return "form-add-menu";
@@ -45,5 +47,27 @@ public class MenuController {
         menuService.addMenu(menu);
         model.addAttribute("nama", menu.getNama());
         return "add-menu";
+    }
+
+    @RequestMapping(value = "/menu/change/{idMenu}", method = RequestMethod.GET)
+    private String changeMenuFormPage(
+            @PathVariable(value = "idMenu")
+                    Long idMenu,
+            Model model) {
+
+        MenuModel existingMenu = menuService.findById(idMenu).orElse(null);
+        model.addAttribute("menu", existingMenu);
+        return "form-change-menu";
+    }
+
+    @RequestMapping(value = "/menu/change/{idMenu}", method = RequestMethod.POST)
+    private String changeMenuFormSubmit(
+            @PathVariable(value = "idMenu")
+                    Long idMenu,
+            @ModelAttribute
+                    MenuModel menu) {
+
+        MenuModel newMenuData = menuService.changeMenu(menu);
+        return "change-menu";
     }
 }

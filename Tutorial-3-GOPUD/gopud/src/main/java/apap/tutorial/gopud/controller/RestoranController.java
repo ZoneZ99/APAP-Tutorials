@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class RestoranController {
@@ -51,10 +53,14 @@ public class RestoranController {
                     Long idRestoran,
             Model model) {
 
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
+        Optional<RestoranModel> restoranOpt = restoranService.getRestoranByIdRestoran(idRestoran);
+        RestoranModel restoran = null;
+        if (restoranOpt.isPresent()) {
+            restoran = restoranOpt.get();
+            List<MenuModel> menuList = menuService.findAllMenuByIdRestoran(restoran.getIdRestoran());
+            model.addAttribute("menuList", menuList);
+        }
         model.addAttribute("resto", restoran);
-        List<MenuModel> menuList = menuService.findAllMenuByIdRestoran(restoran.getIdRestoran());
-        model.addAttribute("menuList", menuList);
         return "view-restoran";
     }
 
@@ -64,7 +70,7 @@ public class RestoranController {
                     Long idRestoran,
             Model model) {
 
-        RestoranModel existingRestoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
+        RestoranModel existingRestoran = restoranService.getRestoranByIdRestoran(idRestoran).orElse(null);
         model.addAttribute("restoran", existingRestoran);
         return "form-change-restoran";
     }
@@ -80,5 +86,13 @@ public class RestoranController {
         RestoranModel newRestoranData = restoranService.changeRestoran(restoran);
         model.addAttribute("restoran", newRestoranData);
         return "change-restoran";
+    }
+
+    @RequestMapping(value = "/restoran/view-all", method = RequestMethod.GET)
+    public String viewAllRestoran(Model model) {
+        List<RestoranModel> allRestoran = restoranService.getRestoranList();
+        allRestoran.sort(Comparator.comparing(RestoranModel::getNama));
+        model.addAttribute("restoList", allRestoran);
+        return "viewall-restoran";
     }
 }
