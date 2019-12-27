@@ -27,13 +27,18 @@ public class RestoranInMemoryService implements RestoranService {
     }
 
     @Override
-    public RestoranModel getRestoranByIdRestoran(String idRestoran) {
+    public RestoranModel changeRestoran(RestoranModel restoranModel) {
+        return null;
+    }
+
+    @Override
+    public Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran) {
         Optional<RestoranModel> returnedRestoran = Optional.empty();
         for (RestoranModel restoran : listRestoran) {
             if (restoran.getIdRestoran().equals(idRestoran)) {
                 returnedRestoran = Optional.of(restoran);
             }
         }
-        return returnedRestoran.orElse(null);
+        return returnedRestoran;
     }
 }
