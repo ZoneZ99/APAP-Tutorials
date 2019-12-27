@@ -15,21 +15,31 @@
                 <a th:href="@{/restoran/change/{idRestoran}(idRestoran=${resto.idRestoran})}">Change Data Restoran</a>
             </td>
 
-            <h2>Daftar Menu:</h2>
-
-            <div th:each="menu: ${menuList}">
-                <h3 th:text="'Nama: ' + ${menu.nama}"></h3>
-                <h3 th:text="'Harga: ' + ${menu.harga}"></h3>
-                <h3 th:text="'Deskripsi: ' + ${menu.deskripsi}"></h3>
-                <h3 th:text="'Durasi Penyajian: ' + ${menu.durasiMasak}"></h3>
+            <div th:if="${menuList.isEmpty()}">
                 <td>
-                    <a th:href="@{/menu/change/{idMenu}(idMenu=${menu.id})}">Change Menu Data</a>
+                    <form th:action="@{/restoran/delete/{idRestoran}(idRestoran=${resto.idRestoran})}" method="POST">
+                        <button type="submit">Hapus Restoran</button>
+                    </form>
                 </td>
             </div>
 
-            <td>
-                <a th:href="@{/menu/add/{idRestoran}(idRestoran=${resto.idRestoran})}">Add Menu</a>
-            </td>
+            <div th:unless="${menuList.isEmpty()}">
+                <h2>Daftar Menu:</h2>
+
+                <div th:each="menu: ${menuList}">
+                    <h3 th:text="'Nama: ' + ${menu.nama}"></h3>
+                    <h3 th:text="'Harga: ' + ${menu.harga}"></h3>
+                    <h3 th:text="'Deskripsi: ' + ${menu.deskripsi}"></h3>
+                    <h3 th:text="'Durasi Penyajian: ' + ${menu.durasiMasak}"></h3>
+                    <td>
+                        <a th:href="@{/menu/change/{idMenu}(idMenu=${menu.id})}">Change Menu Data</a>
+                    </td>
+                </div>
+
+                <td>
+                    <a th:href="@{/menu/add/{idRestoran}(idRestoran=${resto.idRestoran})}">Add Menu</a>
+                </td>
+            </div>
         </div>
         <div th:unless="${resto != null}">
             <h2>Restoran tidak ditemukan</h2>

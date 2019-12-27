@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface RestoranDb extends JpaRepository<RestoranModel, Long> {
 
     Optional<RestoranModel> findByIdRestoran(Long idRestoran);
+
+    void deleteByIdRestoran(Long idRestoran);
 }

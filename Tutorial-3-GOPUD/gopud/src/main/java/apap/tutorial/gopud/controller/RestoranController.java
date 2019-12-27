@@ -95,4 +95,20 @@ public class RestoranController {
         model.addAttribute("restoList", allRestoran);
         return "viewall-restoran";
     }
+
+    @RequestMapping(value = "/restoran/delete/{idRestoran}", method = RequestMethod.POST)
+    public String deleteRestoran(
+        @PathVariable(value = "idRestoran")
+                Long idRestoran,
+        Model model) {
+
+        Optional<RestoranModel> targetRestoranOpt = restoranService.getRestoranByIdRestoran(idRestoran);
+        RestoranModel targetRestoran = null;
+        if (targetRestoranOpt.isPresent()) {
+            targetRestoran = targetRestoranOpt.get();
+            restoranService.deleteByIdRestoran(targetRestoran.getIdRestoran());
+        }
+        model.addAttribute("restoran", targetRestoran);
+        return "delete-restoran";
+    }
 }

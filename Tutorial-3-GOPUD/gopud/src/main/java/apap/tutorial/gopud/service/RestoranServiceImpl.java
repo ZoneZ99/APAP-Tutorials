@@ -46,4 +46,9 @@ public class RestoranServiceImpl implements RestoranService {
             return null;
         }
     }
+
+    @Override
+    public void deleteByIdRestoran(Long idRestoran) {
+        restoranDb.deleteByIdRestoran(idRestoran);
+    }
 }
