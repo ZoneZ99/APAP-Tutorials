@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Home</title>
+    </head>
+
+    <body>
+        <h2>Selamat datang di GOPUD!</h2>
+        <h3>Tambah Restoran</h3>
+        <td>
+            <a th:href="@{/restoran/add}">Tambah Restoran</a>
+        </td>
+
+        <h3>Cari Restoran Berdasarkan ID</h3>
+        <form th:action="@{/restoran/view}" method="GET">
+            Id Restoran: <br>
+            <input type="text" name="idRestoran"/>
+            <button type="submit">Cari</button>
+        </form>
+
+        <br>
+        <td>
+            <a th:href="@{/restoran/view-all}">View All</a>
+        </td>
+    </body>
+</html>

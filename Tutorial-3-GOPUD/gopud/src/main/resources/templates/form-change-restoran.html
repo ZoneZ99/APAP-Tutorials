@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Change Data Restoran</title>
+    </head>
+
+    <body>
+        <h2>Change Data Restoran</h2>
+        <form th:action="@{/restoran/change/{idRestoran}(idRestoran=${restoran.idRestoran})}"
+              th:object="${restoran}" method="POST">
+            <input type="hidden" th:field="${restoran.idRestoran}" />
+            Nama Restoran: <br>
+            <input type="text" name="nama" th:value="${restoran.nama}" />
+            <br>
+            Alamat: <br>
+            <input type="text" name="alamat" th:value="${restoran.alamat}" />
+            <br>
+            Nomor Telepon: <br>
+            <input type="number" name="nomorTelepon" th:value="${restoran.nomorTelepon}" />
+            <br>
+
+            <br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>

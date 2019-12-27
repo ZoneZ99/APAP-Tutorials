@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Add Menu</title>
+    </head>
+
+    <body>
+        <h3>Tambah Produk</h3>
+        <form th:action="@{/menu/add}" th:object="${menu}" method="POST">
+            <input type="hidden" th:field="*{restoran}" />
+            Nama: <br>
+            <input type="text" name="nama" />
+            <br>
+            Deskripsi: <br>
+            <input type="text" name="deskripsi" />
+            <br>
+            Harga: <br>
+            <input type="number" name="harga" />
+            <br>
+            Durasi Masak (menit): <br>
+            <input type="number" name="durasiMasak" />
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>

@@ -45,9 +45,9 @@ public class RestoranController {
         return "add-restoran";
     }
 
-    @RequestMapping(value = "/restoran/view/{idRestoran}", method = RequestMethod.GET)
+    @RequestMapping(value = "/restoran/view", method = RequestMethod.GET)
     public String view(
-            @PathVariable(value = "idRestoran")
+            @RequestParam(value = "idRestoran")
                     Long idRestoran,
             Model model) {
 
