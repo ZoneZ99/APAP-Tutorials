@@ -34,6 +34,11 @@
                     <td>
                         <a th:href="@{/menu/change/{idMenu}(idMenu=${menu.id})}">Change Menu Data</a>
                     </td>
+                    <td>
+                        <form th:action="@{/menu/delete/{menuId}(menuId=${menu.id})}" method="POST">
+                            <button type="submit">Hapus Menu</button>
+                        </form>
+                    </td>
                 </div>
 
                 <td>

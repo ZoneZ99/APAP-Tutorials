@@ -45,4 +45,9 @@ public class MenuServiceImpl implements MenuService {
             return null;
         }
     }
+
+    @Override
+    public void deleteById(Long menuId) {
+        menuDb.deleteById(menuId);
+    }
 }

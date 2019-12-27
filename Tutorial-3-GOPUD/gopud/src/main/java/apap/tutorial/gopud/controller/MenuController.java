@@ -70,4 +70,20 @@ public class MenuController {
         MenuModel newMenuData = menuService.changeMenu(menu);
         return "change-menu";
     }
+
+    @RequestMapping(value = "/menu/delete/{menuId}", method = RequestMethod.POST)
+    public String deleteMenu(
+            @PathVariable(value = "menuId")
+                    Long menuId,
+            Model model) {
+
+        Optional<MenuModel> targetMenuOpt = menuService.findById(menuId);
+        MenuModel targetMenu = null;
+        if (targetMenuOpt.isPresent()) {
+            targetMenu = targetMenuOpt.get();
+            menuService.deleteById(targetMenu.getId());
+        }
+        model.addAttribute("menu", targetMenu);
+        return "delete-menu";
+    }
 }
