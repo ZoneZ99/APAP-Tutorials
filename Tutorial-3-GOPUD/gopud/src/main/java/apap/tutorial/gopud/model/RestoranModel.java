@@ -35,21 +35,7 @@ public class RestoranModel implements Serializable {
     @OneToMany(mappedBy = "restoran", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MenuModel> listMenu;
 
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
-    public List<MenuModel> getListMenu() {
-        return listMenu;
-    }
-
-    public void setListMenu(List<MenuModel> listMenu) {
-        this.listMenu = listMenu;
-    }
+    public RestoranModel() { }
 
     public RestoranModel(Long idRestoran, String nama, String alamat, Integer nomorTelepon) {
         this.idRestoran = idRestoran;
@@ -89,4 +75,21 @@ public class RestoranModel implements Serializable {
     public void setNomorTelepon(Integer nomorTelepon) {
         this.nomorTelepon = nomorTelepon;
     }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public List<MenuModel> getListMenu() {
+        return listMenu;
+    }
+
+    public void setListMenu(List<MenuModel> listMenu) {
+        this.listMenu = listMenu;
+    }
+
 }

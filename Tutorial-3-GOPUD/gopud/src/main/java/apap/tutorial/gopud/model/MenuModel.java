@@ -42,6 +42,16 @@ public class MenuModel implements Serializable {
     @JsonIgnore
     private RestoranModel restoran;
 
+    public MenuModel() {}
+
+    public MenuModel(String nama, BigInteger harga, Integer durasiMasak, String deskripsi, RestoranModel restoran) {
+        this.nama = nama;
+        this.harga = harga;
+        this.durasiMasak = durasiMasak;
+        this.deskripsi = deskripsi;
+        this.restoran = restoran;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,103 +1,84 @@
 package apap.tutorial.gopud.controller;
 
+import apap.tutorial.gopud.model.MenuModel;
 import apap.tutorial.gopud.model.RestoranModel;
+import apap.tutorial.gopud.service.MenuService;
 import apap.tutorial.gopud.service.RestoranService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 public class RestoranController {
 
+    @Qualifier(value = "restoranServiceImpl")
     @Autowired
     private RestoranService restoranService;
 
-    @RequestMapping("/restoran/add")
-    public String add(
-            @RequestParam(value = "idRestoran")
-                String idRestoran,
-            @RequestParam(value = "nama")
-                String nama,
-            @RequestParam(value = "alamat")
-                String alamat,
-            @RequestParam(value = "nomorTelepon")
-                Integer nomorTelepon,
+    @Autowired
+    private MenuService menuService;
+
+    @RequestMapping("/")
+    public String home() {
+        return "home";
+    }
+
+    @RequestMapping(value = "/restoran/add", method = RequestMethod.GET)
+    public String addRestoranFormPage(Model model) {
+        RestoranModel newRestoran = new RestoranModel();
+        model.addAttribute("restoran", newRestoran);
+        return "form-add-restoran";
+    }
+
+    @RequestMapping(value = "/restoran/add", method = RequestMethod.POST)
+    public String addRestoranSubmit(
+            @ModelAttribute
+                    RestoranModel restoran,
             Model model) {
 
-        RestoranModel restoran = new RestoranModel(idRestoran, nama, alamat, nomorTelepon);
         restoranService.addRestoran(restoran);
-        model.addAttribute("namaResto", nama);
+        model.addAttribute("namaResto", restoran.getNama());
         return "add-restoran";
     }
 
-    @RequestMapping("/restoran/view")
+    @RequestMapping(value = "/restoran/view/{idRestoran}", method = RequestMethod.GET)
     public String view(
-            @RequestParam(value = "idRestoran")
-                String idRestoran,
+            @PathVariable(value = "idRestoran")
+                    Long idRestoran,
             Model model) {
 
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
+        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
         model.addAttribute("resto", restoran);
+        List<MenuModel> menuList = menuService.findAllMenuByIdRestoran(restoran.getIdRestoran());
+        model.addAttribute("menuList", menuList);
         return "view-restoran";
     }
 
-    @RequestMapping("/restoran/view/{idRestoran}")
-    public String viewWithPathVariable(
+    @RequestMapping(value = "/restoran/change/{idRestoran}", method = RequestMethod.GET)
+    public String changeRestoranFormPage(
             @PathVariable(value = "idRestoran")
-                String idRestoran,
+                    Long idRestoran,
             Model model) {
 
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
-        model.addAttribute("resto", restoran);
-        return "view-restoran";
+        RestoranModel existingRestoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
+        model.addAttribute("restoran", existingRestoran);
+        return "form-change-restoran";
     }
 
-    @RequestMapping("/restoran/viewall")
-    public String viewall(Model model) {
-        List<RestoranModel> listRestoran = restoranService.getRestoranList();
-        model.addAttribute("restoList", listRestoran);
-        return "viewall-restoran";
-    }
-
-    @RequestMapping("/restoran/update/id-restoran/{idRestoran}/nomor-telepon/{nomorTeleponBaru}")
-    public String updateNomorTeleponRestoran(
+    @RequestMapping(value = "/restoran/change/{idRestoran}", method = RequestMethod.POST)
+    public String changeRestoranFormSubmit(
             @PathVariable(value = "idRestoran")
-                String idRestoran,
-            @PathVariable(value = "nomorTeleponBaru")
-                String nomorTeleponBaru,
+                    Long idRestoran,
+            @ModelAttribute
+                    RestoranModel restoran,
             Model model) {
 
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
-        if (restoran != null) {
-            restoran.setNomorTelepon(Integer.parseInt(nomorTeleponBaru));
-            model.addAttribute("updated", true);
-            model.addAttribute("restoran", restoran);
-        } else {
-            model.addAttribute("updated", false);
-        }
-        return "update-nomortelepon-restoran";
-    }
-
-    @RequestMapping("/restoran/delete/id/{idRestoran}")
-    public String deleteRestoranByIdRestoran(
-            @PathVariable(value = "idRestoran")
-                String idRestoran,
-            Model model) {
-
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
-        if (restoran != null) {
-            List<RestoranModel> listRestoran = restoranService.getRestoranList();
-            listRestoran.remove(restoran);
-            model.addAttribute("deleted", true);
-            model.addAttribute("restoran", restoran);
-        } else {
-            model.addAttribute("deleted", false);
-        }
-        return "delete-restoran";
+        RestoranModel newRestoranData = restoranService.changeRestoran(restoran);
+        model.addAttribute("restoran", newRestoranData);
+        return "change-restoran";
     }
 }
