@@ -2,10 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Change Data Menu</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 
 <body>
 <div th:if="${menu != null}">
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+
     <h2>Change Data Restoran</h2>
     <form th:action="@{/menu/change/{idMenu}(idMenu=${menu.id})}"
           th:object="${menu}" method="POST">

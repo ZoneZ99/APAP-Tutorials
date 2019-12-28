@@ -2,9 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Add Menu</title>
+
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     </head>
 
     <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+
         <h2 th:text="'Menu ' + ${nama} + ' berhasil ditambahkan'"></h2>
     </body>
 </html>
