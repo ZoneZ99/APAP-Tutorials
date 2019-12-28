@@ -11,21 +11,44 @@
         <nav th:replace="fragments/fragment :: navbar"></nav>
 
         <h3>Tambah Produk</h3>
-        <form th:action="@{/menu/add}" th:object="${menu}" method="POST">
-            <input type="hidden" th:field="*{restoran}" />
-            Nama: <br>
-            <input type="text" name="nama" />
+        <form th:action="@{/menu/add/{idRestoran}(idRestoran=${resto.idRestoran})}"
+              th:object="${resto}" method="POST">
+            <input type="hidden" th:field="*{idRestoran}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Deskripsi</th>
+                        <th>Harga</th>
+                        <th>Durasi Masak (menit)</th>
+                        <th>
+                            <button class="btn btn-sm btn-primary" type="submit" name="addRow">Add Row</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="menu, iterationStatus : *{listMenu}">
+                        <td>
+                            <input type="text" th:field="*{listMenu[__${iterationStatus.index}__].nama}" />
+                        </td>
+                        <td>
+                            <input type="text" th:field="*{listMenu[__${iterationStatus.index}__].deskripsi}" />
+                        </td>
+                        <td>
+                            <input type="text" th:field="*{listMenu[__${iterationStatus.index}__].harga}" />
+                        </td>
+                        <td>
+                            <input type="text" th:field="*{listMenu[__${iterationStatus.index}__].durasiMasak}" />
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" name="deleteRow"
+                                    type="submit" th:value="${iterationStatus.index}">Hapus</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <br>
-            Deskripsi: <br>
-            <input type="text" name="deskripsi" />
-            <br>
-            Harga: <br>
-            <input type="number" name="harga" />
-            <br>
-            Durasi Masak (menit): <br>
-            <input type="number" name="durasiMasak" />
-            <br>
-            <button type="submit">Submit</button>
+            <button class="btn btn-sm btn-primary" type="submit" name="save">Submit</button>
         </form>
     </body>
 </html>
