@@ -53,14 +53,11 @@ public class RestoranController {
                     Long idRestoran,
             Model model) {
 
-        Optional<RestoranModel> restoranOpt = restoranService.getRestoranByIdRestoran(idRestoran);
-        RestoranModel restoran = null;
-        if (restoranOpt.isPresent()) {
-            restoran = restoranOpt.get();
-            List<MenuModel> menuList = menuService.findAllMenuByIdRestoran(restoran.getIdRestoran());
-            model.addAttribute("menuList", menuList);
-        }
+        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
+        List<MenuModel> menuList = menuService.findAllMenuByIdRestoran(restoran.getIdRestoran());
+        restoran.setListMenu(menuList);
         model.addAttribute("resto", restoran);
+        model.addAttribute("menuList", menuList);
         return "view-restoran";
     }
 

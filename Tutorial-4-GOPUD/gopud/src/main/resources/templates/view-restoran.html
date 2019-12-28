@@ -28,11 +28,11 @@
                 </td>
             </div>
 
-            <div th:unless="${menuList.isEmpty()}">
+            <div th:unless="*{menuList.isEmpty()}">
                 <h2>Daftar Menu:</h2>
-
-                <table>
-                    <thead>
+                <form th:action="@{/menu/delete}" th:object="${resto}" method="POST">
+                    <table>
+                        <thead>
                         <tr>
                             <th>No</th>
                             <th>Id Menu</th>
@@ -40,10 +40,11 @@
                             <th>Harga</th>
                             <th>Deskripsi</th>
                             <th>Durasi Penyajian</th>
+                            <th>Aksi</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="menu, iterationStatus: ${menuList}"
+                        </thead>
+                        <tbody>
+                        <tr th:each="menu, iterationStatus: *{listMenu}"
                             th:style="${iterationStatus.even} ? 'color:blue'">
                             <td th:text="${iterationStatus.count}"></td>
                             <td th:text="${menu.id}"></td>
@@ -52,22 +53,22 @@
                             <td th:text="${menu.deskripsi}"></td>
                             <td th:text="${menu.durasiMasak}"></td>
                             <td>
-                                <a th:href="@{/menu/change/{idMenu}(idMenu=${menu.id})}">Change Menu Data</a>
+                                <input type="checkbox" th:field="*{listMenu}" th:value="${menu.id}" />
+                                <label th:for="${#ids.prev('listMenu')}">Hapus</label>
                             </td>
                             <td>
-                                <form th:action="@{/menu/delete/{menuId}(menuId=${menu.id})}" method="POST">
-                                    <button type="submit">Hapus Menu</button>
-                                </form>
+                                <a th:href="@{/menu/change/{idMenu}(idMenu=${menu.id})}">Change Menu Data</a>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
-
-                <td>
-                    <a th:href="@{/menu/add/{idRestoran}(idRestoran=${resto.idRestoran})}">Add Menu</a>
-                </td>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-sm btn-danger">Hapus yang dipilih</button>
+                </form>
             </div>
         </div>
+        <td>
+            <a th:href="@{/menu/add/{idRestoran}(idRestoran=${resto.idRestoran})}">Add Menu</a>
+        </td>
         <div th:unless="${resto != null}">
             <h2>Restoran tidak ditemukan</h2>
         </div>

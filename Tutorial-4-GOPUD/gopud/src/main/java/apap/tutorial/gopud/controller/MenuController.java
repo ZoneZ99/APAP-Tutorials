@@ -86,4 +86,16 @@ public class MenuController {
         model.addAttribute("menu", targetMenu);
         return "delete-menu";
     }
+
+    @RequestMapping(value = "/menu/delete", method = RequestMethod.POST)
+    private String deleteAllMenu(
+            @ModelAttribute
+                    RestoranModel restoran,
+            Model model) {
+
+        for (MenuModel menu : restoran.getListMenu()) {
+            menuService.deleteById(menu.getId());
+        }
+        return "delete-menu-batch";
+    }
 }
