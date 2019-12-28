@@ -35,10 +35,10 @@
                             <input type="text" th:field="*{listMenu[__${iterationStatus.index}__].deskripsi}" />
                         </td>
                         <td>
-                            <input type="text" th:field="*{listMenu[__${iterationStatus.index}__].harga}" />
+                            <input type="number" th:field="*{listMenu[__${iterationStatus.index}__].harga}" />
                         </td>
                         <td>
-                            <input type="text" th:field="*{listMenu[__${iterationStatus.index}__].durasiMasak}" />
+                            <input type="number" th:field="*{listMenu[__${iterationStatus.index}__].durasiMasak}" />
                         </td>
                         <td>
                             <button class="btn btn-sm btn-danger" name="deleteRow"
