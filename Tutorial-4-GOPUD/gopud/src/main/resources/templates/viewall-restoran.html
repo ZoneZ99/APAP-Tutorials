@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <title>View All Restoran</title>
+    </head>
+    <body>
+        <h2>Daftar Seluruh Restoran</h2>
+        <div th:each="resto : ${restoList}">
+            <h3 th:text="'ID Restoran ' + ${resto.idRestoran}"></h3>
+            <h3 th:text="'Nama Restoran ' + ${resto.nama}"></h3>
+            <h3 th:text="'Alamat Restoran ' + ${resto.alamat}"></h3>
+            <h3 th:text="'Nomor Telp. Restoran ' + ${resto.nomorTelepon}"></h3>
+            <td>
+                <a th:href="@{/restoran/view/(idRestoran=${resto.idRestoran})}">View Data Restoran</a>
+            </td>
+        </div>
+    </body>
+</html>

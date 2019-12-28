@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Add Restoran</title>
+    </head>
+
+    <body>
+        <h3>Tambah Restoran</h3>
+        <form th:action="@{/restoran/add}" th:object="${restoran}" method="POST">
+            Nama: <br>
+            <input type="text" name="nama" />
+            <br>
+            Alamat: <br>
+            <input type="text" name="alamat" />
+            <br>
+            Nomor Telepon: <br>
+            <input type="text" name="nomorTelepon" />
+            <br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
