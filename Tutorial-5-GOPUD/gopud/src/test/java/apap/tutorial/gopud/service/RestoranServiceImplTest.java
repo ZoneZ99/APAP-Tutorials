@@ -90,4 +90,14 @@ public class RestoranServiceImplTest {
         assertEquals(Long.valueOf(1), dataFromServiceCall.getIdRestoran());
         assertEquals(Integer.valueOf(14022), dataFromServiceCall.getNomorTelepon());
     }
+
+    @Test
+    public void whenDeleteRetoranByIdItShouldCallRestoranRepositoryDelete() {
+        RestoranModel sampleRestoran = new RestoranModel();
+        sampleRestoran.setIdRestoran((long) 1);
+
+        restoranService.deleteByIdRestoran(sampleRestoran.getIdRestoran());
+
+        verify(restoranDb, times(1)).deleteByIdRestoran(sampleRestoran.getIdRestoran());
+    }
 }
