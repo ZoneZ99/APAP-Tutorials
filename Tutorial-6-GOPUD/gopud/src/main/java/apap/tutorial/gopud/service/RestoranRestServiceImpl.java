@@ -50,7 +50,7 @@ public class RestoranRestServiceImpl implements RestoranRestService {
     @Override
     public void deleteRestoran(Long idRestoran) {
         RestoranModel restoran = getRestoranByIdRestoran(idRestoran);
-        if (!restoran.getListMenu().isEmpty()) {
+        if (restoran.getListMenu().isEmpty()) {
             restoranDb.delete(restoran);
         } else {
             throw new UnsupportedOperationException();
