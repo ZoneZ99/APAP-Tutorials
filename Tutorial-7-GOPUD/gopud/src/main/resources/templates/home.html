@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <title>Home</title>
 
@@ -17,7 +18,7 @@
                 <a th:href="@{/restoran/view-all}" style="color: white">View All Restoran</a>
             </button>
             <hr>
-            <div class="row">
+            <div class="row" sec:authorize="hasAnyAuthority('ADMIN')">
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">Tambah User Baru</div>
