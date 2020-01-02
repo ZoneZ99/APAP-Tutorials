@@ -24,4 +24,11 @@ public class UserServiceImpl implements UserService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(rawPassword);
     }
+
+    public UserModel changeUser(UserModel changedUserData) {
+        UserModel existingUser = userDb.findByUsername(changedUserData.getUsername());
+        existingUser.setUsername(changedUserData.getUsername());
+        existingUser.setPassword(encrypt(changedUserData.getPassword()));
+        return userDb.save(existingUser);
+    }
 }

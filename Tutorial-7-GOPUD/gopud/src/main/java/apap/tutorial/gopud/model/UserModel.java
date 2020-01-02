@@ -44,6 +44,11 @@ public class UserModel implements Serializable {
         this.role = role;
     }
 
+    public UserModel(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public String getId() {
         return id;
     }
