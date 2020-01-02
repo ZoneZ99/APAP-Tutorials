@@ -24,10 +24,10 @@ public class RestoranController {
     @Autowired
     private MenuService menuService;
 
-    @RequestMapping("/")
-    public String home() {
-        return "home";
-    }
+//    @RequestMapping("/")
+//    public String home() {
+//        return "home";
+//    }
 
     @RequestMapping(value = "/restoran/add", method = RequestMethod.GET)
     public String addRestoranFormPage(Model model) {
