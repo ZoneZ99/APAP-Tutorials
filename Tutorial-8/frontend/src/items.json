@@ -1,0 +1,42 @@
+[
+  {
+    "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in nisl nec eros mattis vehicula. Mauris tempus ante eget lectus interdum, at ultrices nisi molestie. Donec venenatis mi vitae diam ultrices pellentesque. Fusce quis nisi arcu. Nulla erat nisi, mollis ut varius vel, lobortis quis sapien. Aliquam id gravida erat, vel hendrerit orci.",
+    "durasiMasak": 1,
+    "id": 1,
+    "harga": 1000,
+    "nama": "Makanan 1",
+    "restoran": null
+  },
+  {
+    "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in nisl nec eros mattis vehicula. Mauris tempus ante eget lectus interdum, at ultrices nisi molestie. Donec venenatis mi vitae diam ultrices pellentesque. Fusce quis nisi arcu. Nulla erat nisi, mollis ut varius vel, lobortis quis sapien. Aliquam id gravida erat, vel hendrerit orci.",
+    "durasiMasak": 1,
+    "id": 2,
+    "harga": 1000,
+    "nama": "Makanan 2",
+    "restoran": null
+  },
+  {
+    "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in nisl nec eros mattis vehicula. Mauris tempus ante eget lectus interdum, at ultrices nisi molestie. Donec venenatis mi vitae diam ultrices pellentesque. Fusce quis nisi arcu. Nulla erat nisi, mollis ut varius vel, lobortis quis sapien. Aliquam id gravida erat, vel hendrerit orci.",
+    "durasiMasak": 1,
+    "id": 3,
+    "harga": 1000,
+    "nama": "Makanan 3",
+    "restoran": null
+  },
+  {
+    "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in nisl nec eros mattis vehicula. Mauris tempus ante eget lectus interdum, at ultrices nisi molestie. Donec venenatis mi vitae diam ultrices pellentesque. Fusce quis nisi arcu. Nulla erat nisi, mollis ut varius vel, lobortis quis sapien. Aliquam id gravida erat, vel hendrerit orci.",
+    "durasiMasak": 1,
+    "id": 4,
+    "harga": 1000,
+    "nama": "Makanan 4",
+    "restoran": null
+  },
+  {
+    "deskripsi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in nisl nec eros mattis vehicula. Mauris tempus ante eget lectus interdum, at ultrices nisi molestie. Donec venenatis mi vitae diam ultrices pellentesque. Fusce quis nisi arcu. Nulla erat nisi, mollis ut varius vel, lobortis quis sapien. Aliquam id gravida erat, vel hendrerit orci.",
+    "durasiMasak": 1,
+    "id": 5,
+    "harga": 1000,
+    "nama": "Makanan 5",
+    "restoran": null
+  }
+]
