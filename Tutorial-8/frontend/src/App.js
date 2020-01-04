@@ -33,8 +33,14 @@ export default class App extends React.Component {
         this.setState({favItems: newItems});
     };
 
+    handleFavoriteToggle = () => {
+        this.setState(previousState => (
+            {showFavoriteList: !previousState.showFavoriteList})
+        );
+    };
+
     render() {
-        const {favItems} = this.state;
+        const {favItems, showFavoriteList} = this.state;
         return (
             <div className="container-fluid">
                 <h1 className="text-center">
@@ -42,6 +48,15 @@ export default class App extends React.Component {
                     <small>Class-based</small>
                 </h1>
                 <div className="container pt-3">
+                    <div className="row">
+                        <input
+                            className="mr-2"
+                            type="checkbox"
+                            checked={showFavoriteList}
+                            onChange={this.handleFavoriteToggle}
+                        />
+                        <label>Show Favorite</label>
+                    </div>
                     <div className="row">
                         <div className="col-sm">
                             <List
@@ -54,14 +69,17 @@ export default class App extends React.Component {
                             />
                         </div>
                         <div className="col-sm">
-                            <List
-                                title="My Favorite"
-                                items={favItems}
-                                onItemClick={this.handleFavoriteItemClick}
-                                itemExtraProps={
-                                    {showCheckbox: true}
-                                }
-                            />
+                            {
+                                showFavoriteList &&
+                                <List
+                                    title="My Favorite"
+                                    items={favItems}
+                                    onItemClick={this.handleFavoriteItemClick}
+                                    itemExtraProps={
+                                        {showCheckbox: true}
+                                    }
+                                />
+                            }
                         </div>
                     </div>
                 </div>
