@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Item(props) {
-    const {item, onChange} = props;
+    const {item, onChange, showCheckbox} = props;
     const {nama, deskripsi, harga, checked} = item;
 
     const handleChange = () =>
@@ -14,7 +14,10 @@ export default function Item(props) {
             onClick={handleChange}
         >
             <div className="d-flex w-100 justify-content-between align-items-center">
-                <input type="checkbox" checked={checked} onChange={handleChange}/>
+                {
+                    showCheckbox &&
+                    <input type="checkbox" checked={checked} onChange={handleChange}/>
+                }
                 <h5 className="mb-1">{nama}</h5>
                 <small>Rp{harga}</small>
             </div>

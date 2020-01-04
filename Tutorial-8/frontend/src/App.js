@@ -38,6 +38,9 @@ export default class App extends React.Component {
                                 title="Our Menu"
                                 items={dummyItems}
                                 onItemClick={this.handleItemClick}
+                                itemExtraProps={
+                                    {showCheckbox: false}
+                                }
                             />
                         </div>
                         <div className="col-sm">
@@ -45,6 +48,9 @@ export default class App extends React.Component {
                                 title="My Favorite"
                                 items={favItems}
                                 onItemClick={this.handleItemClick}
+                                itemExtraProps={
+                                    {showCheckbox: true}
+                                }
                             />
                         </div>
                     </div>
