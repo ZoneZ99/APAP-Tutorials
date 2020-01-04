@@ -159,6 +159,11 @@ class Restorans extends Component {
         this.cancelledHandler();
     };
 
+    async deleteRestoranHandler(restoranId) {
+        await axios.delete(`/restoran/${restoranId}`);
+        await this.loadRestorans();
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -184,6 +189,7 @@ class Restorans extends Component {
                             alamat={restoran.alamat}
                             nomorTelepon={restoran.nomorTelepon}
                             edit={() => this.editRestoranHandler(restoran)}
+                            delete={() => this.deleteRestoranHandler(restoran.idRestoran)}
                         />
                     )}
                 </div>
