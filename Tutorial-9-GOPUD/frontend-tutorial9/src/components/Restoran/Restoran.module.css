@@ -1,0 +1,32 @@
+.Restoran {
+    width: 50%;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 3px;
+    padding: 10px;
+    margin: 20px auto;
+    box-sizing: border-box;
+}
+
+.EditRestoranButton {
+    background-color: lightblue;
+    outline: none;
+    cursor: pointer;
+    border: 2px solid black;
+    color: black;
+    font-family: inherit;
+    font-size: 1.2 em;
+    padding: 2px 8px;
+    box-shadow: 2px 2px 2px #36622b;
+}
+
+.DeleteRestoranButton {
+    background-color: lightpink;
+    outline: none;
+    cursor: pointer;
+    border: 2px solid black;
+    color: black;
+    font-family: inherit;
+    font-size: 1.2 em;
+    padding: 2px 8px;
+    box-shadow: 2px 2px 2px #36622b;
+}
