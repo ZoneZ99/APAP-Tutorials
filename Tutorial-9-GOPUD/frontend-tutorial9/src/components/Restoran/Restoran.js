@@ -13,6 +13,14 @@ const Restoran = props => {
             <p>
                 Nomor Telepon : {props.nomorTelepon}
             </p>
+            <div>
+                <button className={classes.EditRestoranButton} onClick={props.edit}>
+                    Edit
+                </button>
+                <button className={classes.DeleteRestoranButton} onClick={props.delete}>
+                    Delete
+                </button>
+            </div>
         </div>
     );
 };

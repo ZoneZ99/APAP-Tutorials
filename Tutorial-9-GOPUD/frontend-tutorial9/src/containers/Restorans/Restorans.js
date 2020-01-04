@@ -12,6 +12,7 @@ class Restorans extends Component {
         this.state = {
             restorans: [],
             isCreate: false,
+            isEdit: false,
             isLoading: false,
             nama: "",
             alamat: "",
@@ -29,7 +30,7 @@ class Restorans extends Component {
     };
 
     cancelledHandler = () => {
-        this.setState({isCreate: false});
+        this.setState({isCreate: false, isEdit: false});
     };
 
     changeHandler = event => {
@@ -75,6 +76,7 @@ class Restorans extends Component {
     }
 
     renderForm() {
+        const {isEdit} = this.state;
         return (
             <form>
                 <input
@@ -82,7 +84,7 @@ class Restorans extends Component {
                     name="nama"
                     type="text"
                     placeholder="Nama"
-                    value={this.state.name}
+                    value={this.state.nama}
                     onChange={this.changeHandler}
                 />
                 <input
@@ -116,12 +118,45 @@ class Restorans extends Component {
                 </Button>
                 <Button
                     btnType="Success"
-                    onClick={this.submitAddRestoranHandler}
+                    onClick={isEdit ? this.submitEditRestoranHandler :
+                        this.submitAddRestoranHandler}
                 >
                     SUBMIT
                 </Button>
             </form>
         );
+    };
+
+    editRestoranHandler(restoran) {
+        this.setState({
+            isEdit: true,
+            idRestoran: restoran.idRestoran,
+            nama: restoran.nama,
+            nomorTelepon: restoran.nomorTelepon,
+            rating: restoran.rating,
+            alamat: restoran.alamat
+        });
+    }
+
+    submitEditRestoranHandler = event => {
+        console.log("editing")
+        event.preventDefault();
+        this.setState({isLoading: true});
+        this.editRestoran();
+        this.cancelledHandler();
+    };
+
+    async editRestoran() {
+        const restoranToEdit = {
+            idRestoran: this.state.idRestoran,
+            nama: this.state.nama,
+            alamat: this.state.alamat,
+            nomorTelepon: this.state.nomorTelepon,
+            rating: this.state.rating
+        };
+        await axios.put("/restoran/" + this.state.idRestoran, restoranToEdit);
+        await this.loadRestorans();
+        this.cancelledHandler();
     };
 
     render() {
@@ -148,6 +183,7 @@ class Restorans extends Component {
                             nama={restoran.nama}
                             alamat={restoran.alamat}
                             nomorTelepon={restoran.nomorTelepon}
+                            edit={() => this.editRestoranHandler(restoran)}
                         />
                     )}
                 </div>
