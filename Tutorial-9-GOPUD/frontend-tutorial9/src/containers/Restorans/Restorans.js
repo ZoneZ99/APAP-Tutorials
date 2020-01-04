@@ -10,6 +10,7 @@ class Restorans extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            backupRestorans: [],
             restorans: [],
             isCreate: false,
             isEdit: false,
@@ -17,7 +18,8 @@ class Restorans extends Component {
             nama: "",
             alamat: "",
             nomorTelepon: "",
-            rating: ""
+            rating: "",
+            searchQuery: "",
         };
     }
 
@@ -47,7 +49,8 @@ class Restorans extends Component {
             });
         }
         this.setState({
-            restorans: fetchedRestorans
+            restorans: fetchedRestorans,
+            backupRestorans: fetchedRestorans
         });
     };
 
@@ -139,7 +142,6 @@ class Restorans extends Component {
     }
 
     submitEditRestoranHandler = event => {
-        console.log("editing")
         event.preventDefault();
         this.setState({isLoading: true});
         this.editRestoran();
@@ -164,6 +166,23 @@ class Restorans extends Component {
         await this.loadRestorans();
     }
 
+    searchRestoranByName = (event) => {
+        const query = event.target.value;
+        this.setState({searchQuery: query});
+        if (query.trim() === "") {
+            this.setState({
+                restorans: this.state.backupRestorans
+            })
+        } else {
+            let searchedRestorans = this.state.backupRestorans.filter(
+                restoran => restoran.nama.includes(query, 0)
+            );
+            this.setState({
+                restorans: searchedRestorans
+            });
+        }
+    };
+
     render() {
         return (
             <React.Fragment>
@@ -180,6 +199,17 @@ class Restorans extends Component {
                     >
                         + Add New Restoran
                     </button>
+                </div>
+                <div>
+                    <form>
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            value={this.state.searchQuery}
+                            onChange={this.searchRestoranByName}
+                            onKeyDown={this.keyDownHandler}
+                        />
+                    </form>
                 </div>
                 <div className={classes.Restorans}>
                     {this.state.restorans.map(restoran =>
