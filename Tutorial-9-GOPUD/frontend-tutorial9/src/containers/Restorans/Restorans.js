@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import Restoran from "../../components/Restoran/Restoran";
 import classes from "./Restorans.module.css"
 import axios from "../../axios-restoran";
+import Modal from "../../components/UI/Modal/Modal";
+import Button from "../../components/UI/Button/Button";
 
 class Restorans extends Component {
 
@@ -9,13 +11,31 @@ class Restorans extends Component {
         super(props);
         this.state = {
             restorans: [],
-            isLoading: false
+            isCreate: false,
+            isLoading: false,
+            nama: "",
+            alamat: "",
+            nomorTelepon: "",
+            rating: ""
         };
     }
 
     componentDidMount() {
         this.loadRestorans();
     }
+
+    addRestoranHandler = () => {
+        this.setState({isCreate: true});
+    };
+
+    cancelledHandler = () => {
+        this.setState({isCreate: false});
+    };
+
+    changeHandler = event => {
+        const {name, value} = event.target;
+        this.setState({[name]: value});
+    };
 
     loadRestorans = async () => {
         const fetchedRestorans = [];
@@ -30,10 +50,97 @@ class Restorans extends Component {
         });
     };
 
+    submitAddRestoranHandler = event => {
+        event.preventDefault();
+        this.setState({isLoading: true});
+        this.addRestoran();
+        this.cancelledHandler();
+        this.setState({
+            nama: "",
+            alamat: "",
+            nomorTelepon: "",
+            rating: ""
+        })
+    };
+
+    async addRestoran() {
+        const restoranToAdd = {
+            nama: this.state.nama,
+            alamat: this.state.alamat,
+            nomorTelepon: this.state.nomorTelepon,
+            rating: this.state.rating
+        };
+        await axios.post("/restoran", restoranToAdd);
+        await this.loadRestorans();
+    }
+
+    renderForm() {
+        return (
+            <form>
+                <input
+                    className={classes.Input}
+                    name="nama"
+                    type="text"
+                    placeholder="Nama"
+                    value={this.state.name}
+                    onChange={this.changeHandler}
+                />
+                <input
+                    className={classes.Input}
+                    name="nomorTelepon"
+                    type="number"
+                    placeholder="Nomor Telepon"
+                    value={this.state.nomorTelepon}
+                    onChange={this.changeHandler}
+                />
+                <textarea
+                    className={classes.TextArea}
+                    name="alamat"
+                    placeholder="Alamat"
+                    value={this.state.alamat}
+                    onChange={this.changeHandler}
+                />
+                <input
+                    className={classes.Input}
+                    name="rating"
+                    type="number"
+                    placeholder="Rating"
+                    value={this.state.rating}
+                    onChange={this.changeHandler}
+                />
+                <Button
+                    btnType="Danger"
+                    onClick={this.cancelledHandler}
+                >
+                    CANCEL
+                </Button>
+                <Button
+                    btnType="Success"
+                    onClick={this.submitAddRestoranHandler}
+                >
+                    SUBMIT
+                </Button>
+            </form>
+        );
+    };
+
     render() {
         return (
             <React.Fragment>
+                <Modal show={this.state.isCreate || this.state.isEdit}
+                       modalClosed={this.cancelledHandler}
+                >
+                    {this.renderForm()}
+                </Modal>
                 <div className={classes.Title}>All Restorans</div>
+                <div className={classes.ButtonLayout}>
+                    <button
+                        className={classes.AddRestoranButton}
+                        onClick={this.addRestoranHandler}
+                    >
+                        + Add New Restoran
+                    </button>
+                </div>
                 <div className={classes.Restorans}>
                     {this.state.restorans.map(restoran =>
                         <Restoran
@@ -41,7 +148,8 @@ class Restorans extends Component {
                             nama={restoran.nama}
                             alamat={restoran.alamat}
                             nomorTelepon={restoran.nomorTelepon}
-                        />)}
+                        />
+                    )}
                 </div>
             </React.Fragment>
         );
